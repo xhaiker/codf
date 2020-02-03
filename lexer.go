@@ -197,9 +197,9 @@ const (
 	rBracketOpen  = '['
 	rBracketClose = ']'
 	rDoubleQuote  = '"'
-	rBackQuote    = '`'
+	rBackQuote    = '\''
 	rSpecial      = '#'
-	rComment      = '/'
+	rComment      = '#'
 	rDot          = '.'
 	rFracSep      = '/'
 	rBaseSep      = '#'
@@ -558,10 +558,10 @@ func (l *Lexer) lexSpace(r rune, next consumerFunc) consumerFunc {
 func (l *Lexer) lexCommentStart(next consumerFunc) consumerFunc {
 	l.buffer(rComment, -1)
 	return func(r rune) (Token, consumerFunc, error) {
-		if r != rComment {
-			l.unread()
-			return l.lexBecomeWord(-1)
-		}
+		//if r != rComment {
+		//	l.unread()
+		//	return l.lexBecomeWord(-1)
+		//}
 		return noToken, l.lexComment(next), nil
 	}
 }
