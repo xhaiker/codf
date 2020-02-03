@@ -1,6 +1,9 @@
 package codf // import "go.spiff.io/codf"
 
 import (
+	"fmt"
+	"io/ioutil"
+	"os"
 	"reflect"
 	"strings"
 	"testing"
@@ -429,4 +432,14 @@ func TestParseExpr(t *testing.T) {
 			t.Fatalf("parser state changed\ngot\t%#+ v\nwant\t%#+ v", parser, &init)
 		}
 	})
+}
+
+func TestNginxFullConfig(t *testing.T) {
+	reader, _ := os.OpenFile("_test/nginx.nginx", os.O_RDONLY, 0666)
+	bs, _ := ioutil.ReadAll(reader)
+	cfg, err := parse(string(bs))
+	if err != nil {
+		t.Fatal(err)
+	}
+	fmt.Println(cfg.String())
 }
